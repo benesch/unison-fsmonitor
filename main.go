@@ -208,7 +208,6 @@ func run() error {
 					sendCommand("RECURSIVE", c)
 				})
 				r.changes.Clear()
-				r.waiting = false
 				sendCommand("DONE")
 
 			case "RESET":
@@ -245,6 +244,7 @@ func run() error {
 						path = filepath.Join(replPath, path)
 						r.changes.Insert(path)
 						if r.waiting {
+							r.waiting = false
 							sendCommand("CHANGES", r.hash)
 						}
 						found = true
